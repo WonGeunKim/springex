@@ -36,5 +36,20 @@
         <servlet-name>appServlet</servlet-name>
         <url-pattern>/</url-pattern>    <!-- / : 모든 경로의 요청을 다 받음 -->
     </servlet-mapping>
-    
+
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <servlet-name>appServlet</servlet-name>
+    </filter-mapping>
+
+
 </web-app>

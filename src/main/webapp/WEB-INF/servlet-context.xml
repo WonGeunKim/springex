@@ -37,6 +37,7 @@ InternalResourceViewResolver : 뷰 템플릿
         <property name="formatters">
             <set>
                 <bean class="net.ict.springex.controller.formatter.LocalDateFormatter"></bean>
+                <bean class="net.ict.springex.controller.formatter.CheckboxFormatter"></bean>
             </set>
         </property>
     </bean>
@@ -46,5 +47,8 @@ InternalResourceViewResolver : 뷰 템플릿
 => 빈을 어노테이션으로 만드는 방법
 -->
     <mvc:annotation-driven conversion-service="conversionService" />
+
+
+
 
 </beans>

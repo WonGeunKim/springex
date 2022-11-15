@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -33,6 +34,37 @@ public class TodoMapperTest {
                 .build();
 
         todoMapper.insert(todoVO);
+    }
+
+    @Test
+    public void testSelectAll(){
+        List<TodoVO> voList = todoMapper.selectAll();
+        voList.forEach(vo -> log.info(vo));
+    }
+
+    @Test
+    public void testDelete(){
+        Long tno = 5l;
+        todoMapper.delete(tno);
+    }
+
+    @Test
+    public void testUpdate(){
+        TodoVO todoVO = TodoVO.builder()
+                .title("타이틀 수정2")
+                .dueDate(LocalDate.of(2022, 11,18))
+                .finished(true)
+                .tno(4l)
+                .build();
+
+        todoMapper.update(todoVO);
+    }
+
+    @Test
+    public void testSelectOne(){
+        Long tno = 4l;
+        TodoVO todoVO = todoMapper.selectOne(tno);
+        log.info(todoVO);
     }
 
 }
