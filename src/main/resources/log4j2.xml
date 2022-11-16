@@ -15,6 +15,10 @@
             <appender-ref ref="console"/>
         </logger>
 
+        <logger name="net.ict.springex.mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
         <root level="info" additivity="false">
             <AppenderRef ref="console"/>
         </root>

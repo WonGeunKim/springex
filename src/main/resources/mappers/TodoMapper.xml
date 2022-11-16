@@ -30,12 +30,12 @@
     <select id="selectList" resultType="net.ict.springex.domain.TodoVO">
         select * from tbl_todo
         <where>
-            <if test="types!=null and types.length > 0">
+            <if test="types!= null and types.length > 0">
                 <foreach collection="types" item="type" open="(" close=")" separator=" OR ">
                     <if test="type == 't'.toString()">
                         title like concat('%', #{keyword}, '%')
                     </if>
-                    <if test="type=='w'.toString()">
+                    <if test="type == 'w'.toString()">
                         writer like concat('%', #{keyword}, '%')
                     </if>
                 </foreach>
@@ -43,17 +43,17 @@
 
             <if test="finished">
                 <trim prefix="and">
-                    finish = 1
+                    finished = 1
                 </trim>
             </if>
 
             <if test="from != null and to != null">
                 <trim prefix="and">
-                    LocalDate between #{from} and #{to}
+                    dueDate between #{from} and #{to}
                 </trim>
             </if>
         </where>
-        order by tno desc limit #{skip}, #{size }
+        order by tno desc limit #{skip}, #{size}
     </select>
 
     <select id="getCount" resultType="int">

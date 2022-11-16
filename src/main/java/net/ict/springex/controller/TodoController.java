@@ -100,7 +100,7 @@ public class TodoController {
 
     // get 방식의 여러개의 경로를 배열 형식으로 지정 가능
    @GetMapping({"/read", "/modify"})
-    public void read(Long tno, Model model){
+    public void read(PageRequestDTO pageRequestDTO ,Long tno, Model model){
         TodoDTO todoDTO = todoService.getOne(tno);
         log.info(todoDTO);
         model.addAttribute("dto", todoDTO);
