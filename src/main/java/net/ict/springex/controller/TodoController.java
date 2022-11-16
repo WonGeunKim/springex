@@ -2,6 +2,7 @@ package net.ict.springex.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.ict.springex.dto.PageRequestDTO;
 import net.ict.springex.dto.TodoDTO;
 import net.ict.springex.service.TodoService;
 import org.springframework.stereotype.Controller;
@@ -25,17 +26,27 @@ public class TodoController {
     // 서비스에 register 메소드가 있기 때문에
     private final TodoService todoService;
 
+    /**/
     // 최종 경로는 /todo/list가 된다
     @RequestMapping("/list")
-    public void list(Model model){
+    public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult , Model model){
 
-        log.info("todo list.......");
+//        log.info("todo list.......");
+        log.info(pageRequestDTO);
+
+        if (bindingResult.hasErrors()){
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        model.addAttribute("responseDTO", todoService.getList(pageRequestDTO));
 
         // todoService.getAll() 로 "dtoList"에 담는다
-        model.addAttribute("dtoList", todoService.getAll());
+//        model.addAttribute("dtoList", todoService.getAll());
         // model에는 "dtoList" 이름으로 목록데이터가 담겨있다
 
     }
+
+
 
     // get 방식의 register
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -109,4 +120,8 @@ public class TodoController {
         todoService.modify(todoDTO);
         return "redirect:/todo/list";
    }
+
+
+
+
 }

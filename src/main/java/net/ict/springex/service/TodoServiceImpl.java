@@ -1,8 +1,11 @@
 package net.ict.springex.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.ict.springex.domain.TodoVO;
+import net.ict.springex.dto.PageRequestDTO;
+import net.ict.springex.dto.PageResponseDTO;
 import net.ict.springex.dto.TodoDTO;
 import net.ict.springex.mapper.TodoMapper;
 import org.modelmapper.ModelMapper;
@@ -33,6 +36,7 @@ public class TodoServiceImpl implements TodoService{
 
     }
 
+    /*
     @Override
     public List<TodoDTO> getAll() {
 
@@ -47,6 +51,7 @@ public class TodoServiceImpl implements TodoService{
 
         return dtoList;
     }
+    */
 
     @Override
     public void remove(Long tno) {
@@ -66,6 +71,25 @@ public class TodoServiceImpl implements TodoService{
 
         TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
         todoMapper.update(todoVO);
+    }
+
+    @Override
+    public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO) {
+
+        List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+        List<TodoDTO> dtoList = voList.stream()
+                .map(vo -> modelMapper.map(vo, TodoDTO.class))
+                .collect(Collectors.toList());
+
+        int total = todoMapper.getCount(pageRequestDTO);
+
+        PageResponseDTO<TodoDTO> pageResponseDTO = PageResponseDTO.<TodoDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+        return pageResponseDTO;
     }
 
 }

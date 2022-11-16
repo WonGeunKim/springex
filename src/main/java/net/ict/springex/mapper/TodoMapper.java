@@ -3,6 +3,7 @@ package net.ict.springex.mapper;
 // XML 파일 만들 때 이름 똑같이 만들어야함
 
 import net.ict.springex.domain.TodoVO;
+import net.ict.springex.dto.PageRequestDTO;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface TodoMapper {
 
     void update(TodoVO todoVO);
 
+    List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
+
+    int getCount(PageRequestDTO pageRequestDTO);
 }
 
 
